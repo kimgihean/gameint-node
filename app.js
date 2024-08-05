@@ -9,7 +9,7 @@ var app = express();
 
 var userController = require('./src/controller/userController')
 var bookController = require('./src/controller/bookController')
-
+var commentController = require('./src/controller/commentController')
 // view engine setup
 //app.engine('ejs', engine.__express);
 app.set('views', path.join(__dirname, './views'));
@@ -26,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ROUTING
 app.use('/api/member', userController);
 app.use('/api/book', bookController);
+app.use('/api/comment', commentController);
 
 
 // catch 404 and forward to error handler

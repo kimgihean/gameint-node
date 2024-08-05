@@ -42,7 +42,6 @@
         VALUES
         (#{bookType}, #{memberIdx}, NOW(), NOW(),
             #{author}, #{category}, #{publisher}, #{recommendReason}, #{bookTitle})
-        
     </insert>
 
     <select id="selectMonthlyRecommendedBook">
@@ -86,4 +85,11 @@
         WHERE c.book_idx = #{bookIdx}
         ORDER BY reg_date DESC
     </select>
+
+    <insert id="createComment">
+        INSERT INTO comment 
+        (contents, book_idx, member_idx, reg_date, upd_date)
+        VALUES
+        (#{contents}, #{boardIdx}, #{memberIdx}, NOW(), NOW())
+    </insert>
 </mapper>
