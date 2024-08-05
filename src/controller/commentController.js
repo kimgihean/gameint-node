@@ -6,4 +6,8 @@ router.post("/create", async function(req, res, next) {
     res.json(await commentService.commentCreate(req, res, next));
 })
 
+router.post("/update", async function(req, res, next) {
+    res.json(await commentService.commentUpdate(req,res,next))
+})
+
 module.exports = router

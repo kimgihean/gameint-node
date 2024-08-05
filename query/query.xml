@@ -128,4 +128,12 @@
         VALUES
         (#{bookIdx}, #{contents}, #{member_idx}, #{star})
     </insert>
+
+    <update id="updateComment">
+        UPDATE comment
+        SET contents = #{contents}
+        WHERE book_idx = #{bookIdx} 
+        AND commend_idx = #{commentIdx}
+        AND member_idx = #{memberIdx}
+    </update>
 </mapper>
