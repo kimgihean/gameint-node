@@ -92,4 +92,33 @@
         VALUES
         (#{contents}, #{boardIdx}, #{memberIdx}, NOW(), NOW())
     </insert>
+    
+    <!-- 당선된 적 있던 도서 book type 3 -->
+    <update id="updateBeforeElectMonthlyBook">
+        UPDATE book
+        SET bookType = 3
+        WHERE bookType = 2
+    </update>
+
+    <!-- 현재 당선 도서 book type 2 -->
+    <update id="updateElectMonthlyBook">
+        UPDATE book
+        SET bookType = 2
+        WHERE book_idx = #{bookIdx}
+    </update>
+
+    <!-- 추천된 적 있던 도서 book type 4 -->
+    <update id="updateRecommendBookType">
+        UPDATE book
+        SET bookType = 4
+        WHERE bookType = 1
+    </update>
+
+    <update id="selectAndUpdateMemberIdxByBookIdx">
+        UPDATE member
+        SET last_selected_date = NOW()
+        WHERE member_idx = (SELECT member_idx 
+                            FROM book
+                            WHERE book_idx = #{bookIdx})
+    </update>
 </mapper>
