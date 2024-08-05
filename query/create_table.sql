@@ -4,7 +4,7 @@ create table board (
     contents varchar(255),
     title varchar(255),
     primary key (board_idx)
-) engine=InnoDB
+) engine=InnoDB;
 
 create table book (
     book_idx integer not null auto_increment,
@@ -18,7 +18,7 @@ create table book (
     recommend_reason varchar(255),
     title varchar(255),
     primary key (book_idx)
-) engine=InnoDB
+) engine=InnoDB;
 
 create table comment (
     board_idx integer,
@@ -26,7 +26,7 @@ create table comment (
     member_idx integer,
     contents varchar(255),
     primary key (comment_idx)
-) engine=InnoDB
+) engine=InnoDB;
 
 create table member (
     member_idx integer not null auto_increment,
@@ -36,4 +36,4 @@ create table member (
     password varchar(255),
     telegram_link varchar(255),
     primary key (member_idx)
-) engine=InnoDB
+) engine=InnoDB;

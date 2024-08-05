@@ -10,9 +10,17 @@
         WHERE account = #{account}
     </select>
 
+    <select id="selectMember">
+        SELECT member_idx
+        FROM member
+        WHERE account = #{account} and password = #{password}
+    </select>
+
 	<insert id="createMember">
         INSERT INTO member (account, name, password, telegram_link)
         VALUES
         (#{account}, #{name}, #{password}, #{telegram})
 	</insert>
+
+
 </mapper>

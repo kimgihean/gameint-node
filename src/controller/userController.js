@@ -4,12 +4,12 @@ var userService = require('../service/userService')
 
 // CREATE
 router.post("/create", async function(req, res, next) {
-    res.json(userService.userCreate(req, res));
+    res.json(await userService.userCreate(req, res));
 })
 
 // SIGN IN
 router.post("/sign-in", async function(req, res, next) {
-    res.json(userService.userSignIn(req, res));
+    res.json(await userService.userSignIn(req, res));
 })
 
 module.exports = router;
