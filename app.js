@@ -16,6 +16,7 @@ var cors = require('cors')
 app.use(cors({
   origin: '*'
 }))
+
 // view engine setup
 //app.engine('ejs', engine.__express);
 app.set('views', path.join(__dirname, './views'));
@@ -79,6 +80,12 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+/**
+ * socket on server
+ */
+const webSocket = require('./src/common/util/socket');
+webSocket(server)
 
 /**
  * Normalize a port into a number, string, or false.
