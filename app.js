@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var app = express();
 
 var userController = require('./src/controller/userController')
+var bookController = require('./src/controller/bookController')
 
 // view engine setup
 //app.engine('ejs', engine.__express);
@@ -24,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTING
 app.use('/api/member', userController);
+app.use('/api/book', bookController);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
