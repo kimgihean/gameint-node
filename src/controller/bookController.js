@@ -36,4 +36,9 @@ router.post("/monthly/recommend/elect", async function(req, res, next) {
     res.json(await bookService.monthlyBookElect(req, res, next))
 })
 
+// 책 평가
+router.post("/monthly/:bookIdx/evaluate", async function(req, res, next) {
+    res.json(await bookService.monthlyBookEvaluate(req, res, next))
+})
+
 module.exports = router;

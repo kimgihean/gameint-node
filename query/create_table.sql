@@ -20,6 +20,16 @@ create table book (
     primary key (book_idx)
 ) engine=InnoDB;
 
+create table book_evaluation (
+    book_evaluation_idx integer not null auto_increment,
+    book_idx integer,
+    member_idx integer,
+    contents varchar(255),
+    reg_date datetime,
+    upd_date datetime,
+    primary key (book_evaluation_idx)
+) engine=InnoDB;
+
 create table comment (
     board_idx integer,
     comment_idx integer not null auto_increment,

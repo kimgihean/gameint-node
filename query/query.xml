@@ -121,4 +121,11 @@
                             FROM book
                             WHERE book_idx = #{bookIdx})
     </update>
+
+    <insert id="insertBookEvaluate">
+        INSERT INTO book_evaluate
+        (book_idx, contents, member_idx, star)
+        VALUES
+        (#{bookIdx}, #{contents}, #{member_idx}, #{star})
+    </insert>
 </mapper>

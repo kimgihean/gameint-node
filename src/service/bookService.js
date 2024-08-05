@@ -266,3 +266,45 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
     }
 
 }
+
+module.exports.monthlyBookEvaluate = async function monthlyBookEvaluate(req, res, next) {
+    var bookIdx = req.params.bookIdx;
+
+    var memberIdx = 0;
+    if(req.cookies['member']) {
+        memberIdx = req.cookies['member'];
+    } else {
+        return {
+            code : -1,
+            message : "fail"
+        };
+    }
+
+    /**
+     * contents, star
+     */
+    var reqBody = req.body
+    try {
+        var query = mapper.getStatement("query", "insertBookEvaluate", {...reqBody, bookIdx:bookIdx, memberIdx:memberIdx})
+        var result = await pool.query(query);
+    
+        if(result[0].affectedRows > 0) {
+            return {
+                code: 1,
+                message: "success"
+            }
+        }
+    } catch(e) {
+        console.log("insertBookEvaluate error - ", e)
+        return {
+            code: -99,
+            message: "fail"
+        }
+    }
+
+
+    return {
+        code: -1,
+        message: "fail"
+    }
+}
