@@ -26,4 +26,9 @@ router.get("/monthly/recommend/list", async function(req, res, next) {
     res.json(await bookService.monthlyBookList(req, res, next))
 })
 
+// 글 보기
+router.get("/monthly/recommend/:bookIdx", async function(req, res, next) {
+    res.json(await bookService.monthlyBook(req, res, next))
+})
+
 module.exports = router;

@@ -61,4 +61,29 @@
         ON b.book_idx = c.book_idx
         WHERE book_type = 1
     </select>
+
+    <select id="selectMonthlyBook">
+        SELECT
+            b.img_url as bookImage,
+            m.img_url as memberImage,
+            b.recommend_reason as recommendReason,
+            count(c.book_idx) as commentCount
+        FROM book as b
+        LEFT JOIN member as m,
+        ON b.member_idx = m.member_idx
+        LEFT JOIN comment as c
+        ON b.book_idx = c.book_idx
+        WHERE b.book_idx = #{bookIdx}
+    </select>
+
+    <select id="selectCommentListByBookIdx">
+        SELECT
+            c.contents,
+            m.img_url as memberImage
+        FROM comment as c
+        LEFT JOIN member as m
+        ON c.member_idx = m.member_idx
+        WHERE c.book_idx = #{bookIdx}
+        ORDER BY reg_date DESC
+    </select>
 </mapper>

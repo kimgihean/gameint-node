@@ -95,3 +95,31 @@ module.exports.monthlyBookList = async function monthlyBookList(res, req, next) 
     }
 
 }
+
+module.exports.monthlyBook = async function monthlyBook(req, res, next) {
+    var bookIdx = req.params.bookIdx;
+
+    var query = mapper.getStatement("query", "selectMonthlyBook", {bookIdx: bookIdx});
+    var result = await pool.query(query);
+
+    if(result[0].length < 1) {
+        return {
+            code: -1,
+            message: "fail"
+        }
+    }
+
+    var query = mapper.getStatement("query", "selectCommentListByBookIdx", {bookIdx: bookIdx})
+    var resultCommentList = await pool.query(query);
+
+    var resultJson = {};
+    resultJson = result[0];
+    resultJson = {...resultJson, commentData:resultCommentList[0]}
+
+    return {
+        code: 1,
+        message: success,
+        data: resultJson
+    }
+
+}
