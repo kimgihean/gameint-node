@@ -10,6 +10,12 @@ var app = express();
 var userController = require('./src/controller/userController')
 var bookController = require('./src/controller/bookController')
 var commentController = require('./src/controller/commentController')
+
+var cors = require('cors')
+
+app.use(cors({
+  origin: '*'
+}))
 // view engine setup
 //app.engine('ejs', engine.__express);
 app.set('views', path.join(__dirname, './views'));

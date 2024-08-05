@@ -17,6 +17,7 @@ create table book (
     book_publisher varchar(255),
     recommend_reason varchar(255),
     title varchar(255),
+    img_url varchar(255),
     primary key (book_idx)
 ) engine=InnoDB;
 
@@ -45,5 +46,6 @@ create table member (
     nick_name varchar(255),
     password varchar(255),
     telegram_link varchar(255),
+    img_url varchar(255),
     primary key (member_idx)
 ) engine=InnoDB;
