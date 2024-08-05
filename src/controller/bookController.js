@@ -31,4 +31,9 @@ router.get("/monthly/recommend/:bookIdx", async function(req, res, next) {
     res.json(await bookService.monthlyBook(req, res, next))
 })
 
+// 책 당선
+router.post("/monthly/recommend/elect", async function(req, res, next) {
+    res.json(await bookService.monthlyBookElect(req, res, next))
+})
+
 module.exports = router;

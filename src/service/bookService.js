@@ -179,3 +179,90 @@ module.exports.monthlyBook = async function monthlyBook(req, res, next) {
     }
 
 }
+
+module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next) {
+    var electedBook = req.body.bookIdx;
+
+    // 이전에 당선됐던 책 (type 2) type 3으로 변경
+    try {
+        var query = mapper.getStatement("query", "updateBeforeElectMonthlyBook")
+        var result = await pool.query(query);
+
+        if(result[0].affectedRows !== 1) {
+            return {
+                code: -1,
+                messaget: "fail"
+            }
+        }
+
+    } catch (e) {
+        console.log("updateBeforeElectMonthlyBook error - ", e.message)
+        return {
+            code: -99,
+            message: "fail"
+        };
+    }
+
+    // 당선 된 책 type 2 으로 변경
+    try {
+        var query = mapper.getStatement("query", "updateElectMonthlyBook", {bookIdx: electedBook})
+        var result = await pool.query(query);
+
+        if(result[0].affectedRows !== 1) {
+            return {
+                code: -2,
+                messaget: "fail"
+            }
+        }
+    } catch (e) {
+        console.log("updateElectMonthlyBook error - ", e.message)
+        return {
+            code: -99,
+            message: "fail"
+        };
+    }
+
+    // 다른 추천 책 모두 type 4 로 변경
+    try {
+        var query = mapper.getStatement("query", "updateRecommendBookType")
+        var result = await pool.query(query);
+
+        if(result[0].affectedRows < 1) {
+            return {
+                code: -3,
+                messaget: "fail"
+            }
+        }
+    } catch (e) {
+        console.log("updateRecommendBookType error - ", e.message)
+        return {
+            code: -99,
+            message: "fail"
+        };
+    }
+
+    // 당선이 끝나면 추천인 last_selected_date 업데이트
+    try {
+        var query = mapper.getStatement("query", "selectAndUpdateMemberIdxByBookIdx", {bookIdx:electedBook})
+        var result = await pool.query(query);
+
+        if(result[0].affectedRows < 1) {
+            return {
+                code: -4,
+                messaget: "fail"
+            }
+        }
+    } catch (e) {
+        console.log("selectAndUpdateMemberIdxByBookIdx error - ", e.message)
+        return {
+            code: -99,
+            message: "fail"
+        };
+    }
+
+    return {
+        code: 1,
+        message: "success"
+    }
+
+}
