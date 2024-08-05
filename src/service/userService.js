@@ -9,24 +9,45 @@ module.exports.userCreate = async function userCreate(req, res, next) {
     const param = req.body
 
     // account validation
-    var query = mapper.getStatement("query", "selectMemberAccount", param);
-    var resultAccount = await pool.query(query);
-    if(resultAccount[0].length > 0) {
+    try {
+        var query = mapper.getStatement("query", "selectMemberAccount", param);
+        var resultAccount = await pool.query(query);
+        if(resultAccount[0].length > 0) {
+            return {
+                code: -1,
+                message: "fail"
+            };
+        }
+    } catch(e) {
+        console.log("selectMemberAccount error - ", e.message);
+
         return {
-            code: -1,
+            code: -2,
             message: "fail"
         };
     }
 
-    var query = mapper.getStatement("query", "createMember", param);
-    var result = await pool.query(query);
 
-    if(result[0].affectedRows > 0) {
+    try {
+        var query = mapper.getStatement("query", "createMember", param);
+        var result = await pool.query(query);
+    
+        if(result[0].affectedRows > 0) {
+            return {
+                code: 1,
+                message: "success"
+            };
+        }
+
+    } catch(e) {
+        console.log("createMember error - ", e.message);
+
         return {
-            code: 1,
-            message: "success"
+            code: -2,
+            message: "fail"
         };
     }
+
 
     return {
         code: -1,
@@ -39,23 +60,29 @@ module.exports.userSignIn = async function userSignIn(req, res, next) {
      * account, password
      */
     const param = req.body
+    var resultAccount;
 
-    var query = mapper.getStatement("query", "selectMember", param)
-    var resultAccount = await pool.query(query);
+    try {
+        var query = mapper.getStatement("query", "selectMember", param)
+        resultAccount = await pool.query(query);
+    
+        if(resultAccount[0].length !== 1) {
+            return {
+                code: -1,
+                message: "fail"
+            };
+        }
+    
 
-    if(resultAccount[0].length < 1) {
-        return {
-            code: -1,
-            message: "fail"
-        };
-    }
+    } catch(e) {
+        console.log("selectMember error - ", e.message);
 
-    if(resultAccount[0].length > 1) {
         return {
             code : -2,
             message : "fail"
         };
     }
+
     
     // cookie 생성
     const memberIdx = resultAccount[0].member_idx;

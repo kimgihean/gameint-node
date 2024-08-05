@@ -13,9 +13,19 @@ module.exports.commentCreate = async function commentCreate(req, res, next) {
     /**
      * contents, bookIdx, memberIdx
      */
-    var param = req.body;
-    var query = mapper.getStatement("query","createComment", param)
-    var result = await pool.query(query);
+    var result;
+    try {
+        var param = req.body;
+        var query = mapper.getStatement("query","createComment", param)
+        result = await pool.query(query);
+    } catch (e) {
+        console.log("createComment error - ", e.message)
+        return {
+            code: -2,
+            message: "fail"
+        }
+    }
+
     
     if(result[0].affectedRows > 0 ){
         return {
