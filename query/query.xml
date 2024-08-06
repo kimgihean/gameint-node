@@ -103,7 +103,7 @@
     <!-- 현재 당선 도서 book type 2 -->
     <update id="updateElectMonthlyBook">
         UPDATE book
-        SET bookType = 2
+        SET bookType = 2, selected_date = NOW()
         WHERE book_idx = #{bookIdx}
     </update>
 
@@ -136,4 +136,15 @@
         AND commend_idx = #{commentIdx}
         AND member_idx = #{memberIdx}
     </update>
+
+    <select id="selectLastBookList">
+        SELECT 
+            img_url as bookImage,
+            DATE_FORMAT(selected_date, "%m") as selectedMonth,
+            total_star as totalStar
+        FROM book
+        WHERE book_type = 3
+        AND DATE_FORMAT(selected_date, "%Y") = #{year}
+        ORDER BY selected_date DESC
+    </select>
 </mapper>

@@ -308,3 +308,42 @@ module.exports.monthlyBookEvaluate = async function monthlyBookEvaluate(req, res
         message: "fail"
     }
 }
+
+// book type 3 : 이미 선정됬었던 도서 검색
+module.exports.lastBookList = async function lastBookList(req, res, next) {
+    var year = req.query.year;
+    if( year === undefined || year === null) {
+        return {
+            code: -2,
+            message: "fail"
+        }
+    }
+
+    try {
+        var query = mapper.getStatement("query", "selectLastBookList", {year: year})
+        var result = await pool.query(query);
+    
+        if(result[0].length < 1) {
+            return {
+                code: -1,
+                message: "none"
+            }
+        }
+        
+        return {
+            code: 1,
+            message: "success",
+            data: result[0]
+        };
+
+    } catch (e) {
+        console.log("selectLastBookList error - ", e.meesage)
+
+        return {
+            code: -99,
+            message: "fail"
+        }
+    }
+
+
+}
