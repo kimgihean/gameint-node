@@ -14,7 +14,8 @@ var commentController = require('./src/controller/commentController')
 var cors = require('cors')
 
 app.use(cors({
-  origin: '*'
+  origin: 'http://localhost:8080',
+  credentials: true
 }))
 
 // view engine setup

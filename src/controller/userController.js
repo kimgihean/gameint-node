@@ -26,7 +26,7 @@ router.post("/create", upload.single("profileImage") ,async function(req, res, n
 
 // SIGN IN
 router.post("/sign-in", async function(req, res, next) {
-    res.json(await userService.userSignIn(req, res));
+    res.json(await userService.userSignIn(req, res, next));
 })
 
 module.exports = router;
