@@ -17,9 +17,9 @@
     </select>
 
 	<insert id="createMember">
-        INSERT INTO member (account, name, password, telegram_link)
+        INSERT INTO member (account, name, password, telegram_link, img_url)
         VALUES
-        (#{account}, #{name}, #{password}, #{telegram})
+        (#{account}, #{name}, #{password}, #{telegram}, #{imgUrl})
 	</insert>
 
     <select id="isSelectedDate">

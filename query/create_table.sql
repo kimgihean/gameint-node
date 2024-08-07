@@ -32,7 +32,7 @@ create table book_evaluation (
 ) engine=InnoDB;
 
 create table comment (
-    board_idx integer,
+    book_idx integer,
     comment_idx integer not null auto_increment,
     member_idx integer,
     contents varchar(255),
