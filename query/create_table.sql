@@ -18,6 +18,8 @@ create table book (
     recommend_reason varchar(255),
     title varchar(255),
     img_url varchar(255),
+    selected_date datetime(6),
+    total_star float,
     primary key (book_idx)
 ) engine=InnoDB;
 

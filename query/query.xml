@@ -11,7 +11,10 @@
     </select>
 
     <select id="selectMember">
-        SELECT member_idx
+        SELECT 
+            member_idx as memberIdx, 
+            name, 
+            img_url as profileImg
         FROM member
         WHERE account = #{account} and password = #{password}
     </select>
@@ -38,10 +41,10 @@
     <insert id="createMonthlyBook">
         INSERT INTO book 
         (book_type, member_idx, reg_date, upd_date, 
-            author, book_category, book_publisher, recommend_reason, title)
+            author, book_category, book_publisher, recommend_reason, title, img_url)
         VALUES
         (#{bookType}, #{memberIdx}, NOW(), NOW(),
-            #{author}, #{category}, #{publisher}, #{recommendReason}, #{bookTitle})
+            #{author}, #{category}, #{publisher}, #{recommendReason}, #{bookTitle}, #{imgUrl})
     </insert>
 
     <select id="selectMonthlyRecommendedBook">
@@ -140,7 +143,7 @@
     <select id="selectLastBookList">
         SELECT 
             img_url as bookImage,
-            DATE_FORMAT(selected_date, "%m") as selectedMonth,
+            DATE_FORMAT(selected_date, "%Y-%m") as selectedMonth,
             total_star as totalStar
         FROM book
         WHERE book_type = 3
