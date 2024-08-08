@@ -114,12 +114,7 @@ module.exports.monthlyBookList = async function monthlyBookList(res, req, next) 
         }
     }
 
-    var resultJson = [];
-    for await (var data of result[0]) {
-        resultJson.push(data);
-    }
-
-    if(resultJson.data.length === 0) {
+    if(result[0].length === 0) {
         return {
             code: -1,
             message: "fail"
@@ -129,7 +124,7 @@ module.exports.monthlyBookList = async function monthlyBookList(res, req, next) 
     return {
         code: 1,
         meesage: "success",
-        data: resultJson
+        data: result[0]
     }
 
 }

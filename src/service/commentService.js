@@ -3,7 +3,9 @@ const mapper = require("mybatis-mapper")
 
 module.exports.commentCreate = async function commentCreate(req, res, next) {
 
-    if(!req.cookies['member'] || req.cookies['member'] !== req.body.memberIdx) {
+    console.log(req.cookies['member'])
+    console.log(req.body.memberIdx)
+    if(!req.cookies['member'] || req.cookies['member'] !== String(req.body.memberIdx)) {
         return {
             code : -1,
             message : "fail"

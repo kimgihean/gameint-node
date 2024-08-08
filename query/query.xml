@@ -48,7 +48,20 @@
     </insert>
 
     <select id="selectMonthlyRecommendedBook">
+
         SELECT 
+            b.book_idx as bookIdx,
+            b.member_idx as memberIdx,
+            b.book_publisher as bookPublisher,
+            b.author as bookAuthor,
+            b.title as bookTitle,
+            b.book_type as bookType
+        FROM book as b
+        LEFT JOIN member as m
+        ON b.member_idx = m.member_idx
+        WHERE DATE_FORMAT(b.upd_date, '%Y-%m') = "2024-02"
+    </select>
+        <!-- SELECT 
             b.book_idx as bookIdx,
             b.member_idx as memberIdx,
             b.book_publisher as bookPublisher,
@@ -61,9 +74,8 @@
         ON b.member_idx = m.member_idx
         LEFT JOIN comment as c
         ON b.book_idx = c.book_idx
-        WHERE book_type = 1
-    </select>
-
+        WHERE DATE_FORMAT(b.upd_date, '%Y-%m') = "2024-02"
+        GROUP By c.book_idx -->
     <select id="selectMonthlyBook">
         SELECT
             b.img_url as bookImage,
@@ -93,7 +105,7 @@
         INSERT INTO comment 
         (contents, book_idx, member_idx, reg_date, upd_date)
         VALUES
-        (#{contents}, #{boardIdx}, #{memberIdx}, NOW(), NOW())
+        (#{contents}, #{bookIdx}, #{memberIdx}, NOW(), NOW())
     </insert>
     
     <!-- 당선된 적 있던 도서 book type 3 -->

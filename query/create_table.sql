@@ -38,6 +38,8 @@ create table comment (
     comment_idx integer not null auto_increment,
     member_idx integer,
     contents varchar(255),
+    reg_date datetime(6),
+    upd_date datetime(6)
     primary key (comment_idx)
 ) engine=InnoDB;
 
