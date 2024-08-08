@@ -29,8 +29,12 @@ module.exports.userCreate = async function userCreate(req, res, next) {
 
 
     try {
-        console.log(req.file.originalname)
-        var query = mapper.getStatement("query", "createMember", {...param, imgUrl:req.file.originalname});
+        if(req.file === undefined || req.body.profileImage === null) {
+            imgUrl = null
+        } else {
+            imgUrl = req.file.originalname
+        }
+        var query = mapper.getStatement("query", "createMember", {...param, imgUrl:imgUrl});
         var result = await pool.query(query);
     
         if(result[0].affectedRows > 0) {
