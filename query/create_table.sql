@@ -1,38 +1,55 @@
-CREATE TABLE `book` (
-  `book_idx` int NOT NULL AUTO_INCREMENT,
-  `book_type` int DEFAULT NULL,
-  `member_idx` int DEFAULT NULL,
-  `reg_date` datetime(6) DEFAULT NULL,
-  `upd_date` datetime(6) DEFAULT NULL,
-  `author` varchar(255) DEFAULT NULL,
-  `book_category` varchar(255) DEFAULT NULL,
-  `book_publisher` varchar(255) DEFAULT NULL,
-  `recommend_reason` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `img_url` varchar(45) DEFAULT NULL,
-  `selected_date` datetime DEFAULT NULL,
-  `total_star` float DEFAULT NULL,
-  PRIMARY KEY (`book_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+create table board (
+    board_idx integer not null auto_increment,
+    member_idx integer,
+    contents varchar(255),
+    title varchar(255),
+    primary key (board_idx)
+) engine=InnoDB;
 
-CREATE TABLE `comment` (
-  `comment_idx` int NOT NULL AUTO_INCREMENT,
-  `book_idx` int DEFAULT NULL,
-  `member_idx` int DEFAULT NULL,
-  `contents` varchar(255) DEFAULT NULL,
-  `reg_date` datetime DEFAULT NULL,
-  `upd_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`comment_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+create table book (
+    book_idx integer not null auto_increment,
+    book_type integer,
+    member_idx integer,
+    reg_date datetime(6),
+    upd_date datetime(6),
+    author varchar(255),
+    book_category varchar(255),
+    book_publisher varchar(255),
+    recommend_reason varchar(255),
+    title varchar(255),
+    img_url varchar(255),
+    selected_date datetime(6),
+    total_star float,
+    primary key (book_idx)
+) engine=InnoDB;
 
-CREATE TABLE `member` (
-  `member_idx` int NOT NULL AUTO_INCREMENT,
-  `account` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `nick_name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `telegram_link` varchar(255) DEFAULT NULL,
-  `last_selected_date` datetime DEFAULT NULL,
-  `img_url` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`member_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+create table book_evaluation (
+    book_evaluation_idx integer not null auto_increment,
+    book_idx integer,
+    member_idx integer,
+    contents varchar(255),
+    reg_date datetime,
+    upd_date datetime,
+    primary key (book_evaluation_idx)
+) engine=InnoDB;
+
+create table comment (
+    book_idx integer,
+    comment_idx integer not null auto_increment,
+    member_idx integer,
+    contents varchar(255),
+    reg_date datetime(6),
+    upd_date datetime(6)
+    primary key (comment_idx)
+) engine=InnoDB;
+
+create table member (
+    member_idx integer not null auto_increment,
+    account varchar(255),
+    name varchar(255),
+    nick_name varchar(255),
+    password varchar(255),
+    telegram_link varchar(255),
+    img_url varchar(255),
+    primary key (member_idx)
+) engine=InnoDB;

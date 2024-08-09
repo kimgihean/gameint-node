@@ -29,7 +29,12 @@ module.exports.userCreate = async function userCreate(req, res, next) {
 
 
     try {
-        var query = mapper.getStatement("query", "createMember", param);
+        if(req.file === undefined || req.body.profileImage === null) {
+            imgUrl = null
+        } else {
+            imgUrl = req.file.originalname
+        }
+        var query = mapper.getStatement("query", "createMember", {...param, imgUrl:imgUrl});
         var result = await pool.query(query);
     
         if(result[0].affectedRows > 0) {
@@ -90,6 +95,7 @@ module.exports.userSignIn = async function userSignIn(req, res, next) {
     
     return {
         code: 1,
-        message: "success"
+        message: "success",
+        data: resultAccount[0][0]
     };
 }

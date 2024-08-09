@@ -77,7 +77,7 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
     var result;
     try {
         var query = mapper.getStatement("query", "createMonthlyBook", 
-            {...param, memberIdx:memberIdx, bookType: bookType})
+            {...param, memberIdx:memberIdx, bookType: bookType, imgUrl:req.file.originalname})
         result = await pool.query(query);
     } catch (e) {
         console.log("createMonthlyBook error - ", e.message)
@@ -114,12 +114,7 @@ module.exports.monthlyBookList = async function monthlyBookList(res, req, next) 
         }
     }
 
-    var resultJson = [];
-    for await (var data of result[0]) {
-        resultJson.push(data);
-    }
-
-    if(resultJson.data.length === 0) {
+    if(result[0].length === 0) {
         return {
             code: -1,
             message: "fail"
@@ -129,7 +124,7 @@ module.exports.monthlyBookList = async function monthlyBookList(res, req, next) 
     return {
         code: 1,
         meesage: "success",
-        data: resultJson
+        data: result[0]
     }
 
 }
@@ -337,7 +332,7 @@ module.exports.lastBookList = async function lastBookList(req, res, next) {
         };
 
     } catch (e) {
-        console.log("selectLastBookList error - ", e.meesage)
+        console.log("selectLastBookList error - ", e.message)
 
         return {
             code: -99,
