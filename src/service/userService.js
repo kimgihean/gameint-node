@@ -90,7 +90,8 @@ module.exports.userSignIn = async function userSignIn(req, res, next) {
 
     
     // cookie 생성
-    const memberIdx = resultAccount[0][0].member_idx;
+    const memberIdx = resultAccount[0][0].memberIdx;
+    console.log(memberIdx)
     res.cookie('member', memberIdx, { maxAge: 1000 * 60 * 60 });
     
     return {

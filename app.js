@@ -14,7 +14,7 @@ var commentController = require('./src/controller/commentController')
 var cors = require('cors')
 
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: 'http://localhost:3030', // 3030 공통
   credentials: true
 }))
 
