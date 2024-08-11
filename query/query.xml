@@ -38,6 +38,12 @@
         AND book_publisher = #{publisher}
     </select>
 
+    <select id="selectBookTypeByIdx">
+        SELECT book_type as bookType
+        FROM book
+        WHERE book_idx = #{bookIdx}
+    </select>
+
     <insert id="createMonthlyBook">
         INSERT INTO book 
         (book_type, member_idx, reg_date, upd_date, 
@@ -139,10 +145,10 @@
     </update>
 
     <insert id="insertBookEvaluate">
-        INSERT INTO book_evaluate
-        (book_idx, contents, member_idx, star)
+        INSERT INTO book_evaluation
+        (book_idx, contents, member_idx, star, reg_date, upd_date)
         VALUES
-        (#{bookIdx}, #{contents}, #{member_idx}, #{star})
+        (#{bookIdx}, #{contents}, #{memberIdx}, #{star}, NOW(), NOW())
     </insert>
 
     <update id="updateComment">

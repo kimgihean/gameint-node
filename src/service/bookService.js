@@ -264,7 +264,6 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
 
 module.exports.monthlyBookEvaluate = async function monthlyBookEvaluate(req, res, next) {
     var bookIdx = req.params.bookIdx;
-
     var memberIdx = 0;
     if(req.cookies['member']) {
         memberIdx = req.cookies['member'];
@@ -274,6 +273,27 @@ module.exports.monthlyBookEvaluate = async function monthlyBookEvaluate(req, res
             message : "fail"
         };
     }
+
+    // 책이 당선된 책이 아닌 경우에 대한 검사
+    try {
+        var query = mapper.getStatement("query", "selectBookTypeByIdx", {bookIdx: bookIdx})
+        var result = await pool.query(query);
+
+        if(result[0][0].bookType !== 2) {
+            return {
+                code: -2,
+                message: "fail"
+            }
+        }
+    } catch (e) {
+        console.log("selectBookTypeByIdx error - ", e);
+        return {
+            code: -99,
+            message: "fail"
+        }
+    }
+
+
 
     /**
      * contents, star

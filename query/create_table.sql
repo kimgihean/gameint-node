@@ -28,6 +28,7 @@ create table book_evaluation (
     book_idx integer,
     member_idx integer,
     contents varchar(255),
+    star float,
     reg_date datetime,
     upd_date datetime,
     primary key (book_evaluation_idx)
