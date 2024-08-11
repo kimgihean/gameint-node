@@ -51,7 +51,8 @@
 
         SELECT 
             b.book_idx as bookIdx,
-            b.member_idx as memberIdx,
+            m.member_idx as memberIdx,
+            m.img_url as profileImage,
             b.book_publisher as bookPublisher,
             b.author as bookAuthor,
             b.title as bookTitle,
@@ -83,7 +84,7 @@
             b.recommend_reason as recommendReason,
             count(c.book_idx) as commentCount
         FROM book as b
-        LEFT JOIN member as m,
+        LEFT JOIN member as m
         ON b.member_idx = m.member_idx
         LEFT JOIN comment as c
         ON b.book_idx = c.book_idx

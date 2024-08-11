@@ -169,7 +169,7 @@ module.exports.monthlyBook = async function monthlyBook(req, res, next) {
 
     return {
         code: 1,
-        message: success,
+        message: "success",
         data: resultJson
     }
 
