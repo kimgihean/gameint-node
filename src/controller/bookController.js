@@ -44,6 +44,11 @@ router.post("/monthly/:bookIdx/evaluate", async function(req, res, next) {
     res.json(await bookService.monthlyBookEvaluate(req, res, next))
 })
 
+// 책 평가 조회
+router.get("/monthly/:bookIdx/evaluate/list", async function (req, res, next) {
+    res.json(await bookService.monthlyBookEvaluateList(req, res, next))
+})
+
 // 지난 책 조회
 router.get("/last/list", async function(req, res, next) {
     res.json(await bookService.lastBookList(req, res, next))

@@ -286,7 +286,7 @@ module.exports.monthlyBookEvaluate = async function monthlyBookEvaluate(req, res
             }
         }
     } catch (e) {
-        console.log("selectBookTypeByIdx error - ", e);
+        console.log("selectBookTypeByIdx error - ", e.message);
         return {
             code: -99,
             message: "fail"
@@ -310,7 +310,7 @@ module.exports.monthlyBookEvaluate = async function monthlyBookEvaluate(req, res
             }
         }
     } catch(e) {
-        console.log("insertBookEvaluate error - ", e)
+        console.log("insertBookEvaluate error - ", e.message)
         return {
             code: -99,
             message: "fail"
@@ -399,7 +399,35 @@ module.exports.getThisMonthElectedBook = async function getThisMonthElectedBook(
             }
         }
     } catch (e) {
-        console.log("selectThisMonthlyElectedBook error - ", e);
+        console.log("selectThisMonthlyElectedBook error - ", e.message);
+        return {
+            code: -99,
+            message: "fail"
+        }
+    }
+}
+
+module.exports.monthlyBookEvaluateList = async function monthlyBookEvaluateList(req, res, next) {
+    const bookIdx = req.params.bookIdx;
+
+    try {
+        var query = mapper.getStatement("query", "selectBookEvaluateList", {bookIdx: bookIdx});
+        var result = await pool.query(query);
+
+        if(result[0].length > 0) {
+            return {
+                code : 1,
+                message : "success",
+                data: result[0]
+            }
+        } else {
+            return {
+                code: -1,
+                message: "fail"
+            }
+        }
+    } catch (e) {
+        console.log("selectBookEvaluateList error - ", e.message);
         return {
             code: -99,
             message: "fail"

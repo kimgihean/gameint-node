@@ -173,6 +173,7 @@
     <select id="selectThisMonthlyElectedBook">
         SELECT 
             b.book_idx as bookIdx,
+            b.author as author,
             b.img_url as bookImgUrl,
             b.title as bookTitle,
             b.book_publisher as bookPublisher,
@@ -183,6 +184,22 @@
         LEFT JOIN member as m
         ON b.member_idx = m.member_idx
         WHERE book_type = 2
-        AND DATE_FORMAT(reg_date, "%Y-%m") = #{targetDate}
+        AND DATE_FORMAT(upd_date, "%Y-%m") = #{targetDate}
+    </select>
+
+    <select id="selectBookEvaluateList">
+        SELECT 
+            be.contents as evaluateContents,
+            be.star as evaluateStar,
+            m.name as name,
+            m.img_url as profileImg
+        FROM 
+            book_evaluation as be
+        LEFT JOIN 
+            member as m
+        ON 
+            be.member_idx = m.member_idx
+        WHERE 
+            be.book_idx = #{bookIdx}
     </select>
 </mapper>
