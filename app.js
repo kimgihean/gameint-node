@@ -86,7 +86,7 @@ server.on('listening', onListening);
  * socket on server
  */
 const webSocket = require('./src/common/util/socket');
-webSocket(server)
+webSocket(server, app)
 
 /**
  * Normalize a port into a number, string, or false.
