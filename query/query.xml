@@ -169,4 +169,20 @@
         AND DATE_FORMAT(selected_date, "%Y") = #{year}
         ORDER BY selected_date DESC
     </select>
+
+    <select id="selectThisMonthlyElectedBook">
+        SELECT 
+            b.book_idx as bookIdx,
+            b.img_url as bookImgUrl,
+            b.title as bookTitle,
+            b.book_publisher as bookPublisher,
+            b.book_category as bookCategory,
+            m.name as memberName,
+            b.recommend_reason as recommendReason
+        FROM book as b
+        LEFT JOIN member as m
+        ON b.member_idx = m.member_idx
+        WHERE book_type = 2
+        AND DATE_FORMAT(reg_date, "%Y-%m") = #{targetDate}
+    </select>
 </mapper>

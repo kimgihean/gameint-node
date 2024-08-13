@@ -362,3 +362,47 @@ module.exports.lastBookList = async function lastBookList(req, res, next) {
 
 
 }
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res : 책 idx, 책 이미지, 제목, 출판사 , 카테고리 , 추천인, 추천 이유
+ * @param {*} next 
+ */
+module.exports.getThisMonthElectedBook = async function getThisMonthElectedBook(req, res, next) {
+
+    // 이번 달
+    var nowDate = new Date();
+    var year = nowDate.getFullYear();
+    month = nowDate.getMonth() + 1;
+
+    var targetDate = year +
+                '-' + ( month < 9 ? "0" + month : month );
+
+    try {
+        var query = mapper.getStatement("query", "selectThisMonthlyElectedBook", {targetDate: targetDate})
+        var result = await pool.query(query);
+
+        console.log(query);
+
+        if(result[0].length > 0) {
+            return {
+                code: 1,
+                message: "success",
+                data: result[0][0]
+            }
+        }
+        else {
+            return {
+                code: -1,
+                message: "fail"
+            }
+        }
+    } catch (e) {
+        console.log("selectThisMonthlyElectedBook error - ", e);
+        return {
+            code: -99,
+            message: "fail"
+        }
+    }
+}
