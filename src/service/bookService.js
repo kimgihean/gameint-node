@@ -424,7 +424,7 @@ module.exports.lastRecommendList = async function lastRecommendList(req, res, ne
     const updDate = req.query.updDate;
 
     try {
-        var query = mapper.getStatement('query', 'selectLastRecommendList', { bookIdx: bookIdx });
+        var query = mapper.getStatement('query', 'selectLastRecommendList', { updDate: updDate });
         var result = await pool.query(query);
 
         if(result[0].length === 0) {
@@ -440,6 +440,7 @@ module.exports.lastRecommendList = async function lastRecommendList(req, res, ne
             }
         }
     } catch(e) {
+        console.log("selectLastRecommendList error - ", e.message )
         return {
             code: -99,
             message: "fail"

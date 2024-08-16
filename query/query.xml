@@ -215,6 +215,6 @@
         FROM
             book
         WHERE 
-            DATE_FORMAT(upd_date, "%Y-%m")
+            DATE_FORMAT(upd_date, "%Y-%m") = #{updDate}
     </select>
 </mapper>
