@@ -54,4 +54,9 @@ router.get("/last/list", async function(req, res, next) {
     res.json(await bookService.lastBookList(req, res, next))
 })
 
+// 책 추천 내역 리스트 조회
+router.get("/last/recommend/list", async function(req, res, next) {
+    res.json(await bookService.lastRecommendList(req, res, next))
+})
+
 module.exports = router;

@@ -147,7 +147,7 @@ module.exports.monthlyBook = async function monthlyBook(req, res, next) {
         };
     }
 
-    var result;
+    var resultCommentList;
     try {
         var query = mapper.getStatement('query', 'selectCommentListByBookIdx', { bookIdx: bookIdx });
         resultCommentList = await pool.query(query);
@@ -160,8 +160,8 @@ module.exports.monthlyBook = async function monthlyBook(req, res, next) {
     }
 
     var resultJson = {};
-    resultJson = result[0];
-    resultJson = { ...resultJson, commentData: resultCommentList[0] };
+    resultJson = result[0][0];
+    resultJson = { bookData: resultJson, commentData: resultCommentList[0] };
 
     return {
         code: 1,
@@ -418,3 +418,32 @@ module.exports.monthlyBookEvaluateList = async function monthlyBookEvaluateList(
         };
     }
 };
+
+// todo : 캐싱 사용
+module.exports.lastRecommendList = async function lastRecommendList(req, res, next) {
+    const updDate = req.query.updDate;
+
+    try {
+        var query = mapper.getStatement('query', 'selectLastRecommendList', { bookIdx: bookIdx });
+        var result = await pool.query(query);
+
+        if(result[0].length === 0) {
+            return {
+                code: -1,
+                message: "fail"
+            }
+        } else {
+            return {
+                code: 1,
+                message: "success",
+                data: result[0]
+            }
+        }
+    } catch(e) {
+        return {
+            code: -99,
+            message: "fail"
+        }
+    }
+
+}

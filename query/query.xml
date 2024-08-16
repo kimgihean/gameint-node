@@ -88,6 +88,7 @@
             b.img_url as bookImage,
             m.img_url as memberImage,
             b.recommend_reason as recommendReason,
+            DATE_FORMAT(b.upd_date, "%Y-%m") as updDate,
             count(c.book_idx) as commentCount
         FROM book as b
         LEFT JOIN member as m
@@ -201,5 +202,19 @@
             be.member_idx = m.member_idx
         WHERE 
             be.book_idx = #{bookIdx}
+    </select>
+
+    <select id="selectLastRecommendList">
+        SELECT
+            book_idx as bookIdx,
+            book_type as bookType,
+            member_idx as memberIdx,
+            img_url as imgUrl,
+            title as title,
+            total_star as totalStar
+        FROM
+            book
+        WHERE 
+            DATE_FORMAT(upd_date, "%Y-%m")
     </select>
 </mapper>

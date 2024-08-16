@@ -40,7 +40,7 @@ create table comment (
     member_idx integer,
     contents varchar(255),
     reg_date datetime(6),
-    upd_date datetime(6)
+    upd_date datetime(6),
     primary key (comment_idx)
 ) engine=InnoDB;
 
@@ -52,5 +52,6 @@ create table member (
     password varchar(255),
     telegram_link varchar(255),
     img_url varchar(255),
+    last_selected_date datetime(6),
     primary key (member_idx)
 ) engine=InnoDB;
