@@ -164,7 +164,7 @@
             img_url as bookImage,
             DATE_FORMAT(upd_date, "%Y-%m") as selectedMonth,
             total_star as totalStar,
-            book_idx as booIdx
+            book_idx as bookIdx
         FROM book
         WHERE book_type = 3
         ORDER BY upd_date DESC
