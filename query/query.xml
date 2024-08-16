@@ -50,7 +50,7 @@
             author, book_category, book_publisher, recommend_reason, title, img_url)
         VALUES
         (#{bookType}, #{memberIdx}, NOW(), NOW(),
-            #{author}, #{category}, #{publisher}, #{recommendReason}, #{bookTitle}, #{imgUrl})
+            #{author}, #{category}, #{publisher}, #{recommendReason}, #{bookTitle}, #{bookImage})
     </insert>
 
     <select id="selectMonthlyRecommendedBook">

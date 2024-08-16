@@ -75,7 +75,7 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
 
     var result;
     try {
-        var query = mapper.getStatement('query', 'createMonthlyBook', { ...param, memberIdx: memberIdx, bookType: bookType, imgUrl: req.file.originalname });
+        var query = mapper.getStatement('query', 'createMonthlyBook', { ...param, memberIdx: memberIdx, bookType: bookType});
         result = await pool.query(query);
     } catch (e) {
         console.log('createMonthlyBook error - ', e.message);

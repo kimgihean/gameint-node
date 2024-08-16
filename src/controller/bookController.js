@@ -21,7 +21,7 @@ const upload = multer({storage: storage});
 router.get("/monthly/this-month", async function(req, res, next) {
     res.json(await bookService.getThisMonthElectedBook(req, res, next))
 })
-router.post("/monthly/recommend/create", upload.single("boardImage"), async function(req, res, next) {
+router.post("/monthly/recommend/create", async function(req, res, next) {
     res.json(await bookService.monthlyBookCreate(req, res, next))
 });
 
