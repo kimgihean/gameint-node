@@ -206,14 +206,20 @@
 
     <select id="selectLastRecommendList">
         SELECT
-            book_idx as bookIdx,
-            book_type as bookType,
-            member_idx as memberIdx,
-            img_url as imgUrl,
-            title as title,
-            total_star as totalStar
+            b.book_idx as bookIdx,
+            b.book_type as bookType,
+            b.member_idx as memberIdx,
+            b.img_url as imgUrl,
+            b.title as title,
+            b.total_star as totalStar,
+            m.img_url as profileImg,
+            b.book_publisher as bookPublisher,
+            b.author as author
         FROM
-            book
+            book as b
+        LEFT JOIN
+            member as m
+        ON b.member_idx = m.member_idx
         WHERE 
             DATE_FORMAT(upd_date, "%Y-%m") = #{updDate}
     </select>
