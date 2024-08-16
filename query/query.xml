@@ -162,12 +162,11 @@
     <select id="selectLastBookList">
         SELECT 
             img_url as bookImage,
-            DATE_FORMAT(selected_date, "%Y-%m") as selectedMonth,
+            DATE_FORMAT(upd_date, "%Y-%m") as selectedMonth,
             total_star as totalStar
         FROM book
         WHERE book_type = 3
-        AND DATE_FORMAT(selected_date, "%Y") = #{year}
-        ORDER BY selected_date DESC
+        ORDER BY upd_date DESC
     </select>
 
     <select id="selectThisMonthlyElectedBook">
