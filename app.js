@@ -6,6 +6,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var app = express();
+var logger = require('morgan');
+if (process.env.NODE_ENV == 'development') app.use(logger('dev'));
 
 var userController = require('./src/controller/userController');
 var bookController = require('./src/controller/bookController');
@@ -85,8 +87,8 @@ server.on('listening', onListening);
 /**
  * socket on server
  */
-const webSocket = require('./src/common/util/socket');
-webSocket(server, app);
+// const webSocket = require('./src/common/util/socket');
+// webSocket(server, app);
 
 /**
  * Normalize a port into a number, string, or false.

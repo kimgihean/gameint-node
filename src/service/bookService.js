@@ -12,7 +12,6 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
             message: 'fail',
         };
     }
-    console.log(memberIdx);
 
     // 책 작성 가능 멤버
     var result;
@@ -367,8 +366,6 @@ module.exports.getThisMonthElectedBook = async function getThisMonthElectedBook(
     try {
         var query = mapper.getStatement('query', 'selectThisMonthlyElectedBook', { targetDate: targetDate });
         var result = await pool.query(query);
-
-        console.log(query);
 
         if (result[0].length > 0) {
             return {
