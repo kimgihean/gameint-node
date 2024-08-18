@@ -190,6 +190,7 @@
 
     <select id="selectBookEvaluateList">
         SELECT 
+            be.book_evaluation_idx as bookEvaluationIdx,
             be.contents as evaluateContents,
             be.star as evaluateStar,
             m.name as name,
@@ -230,6 +231,13 @@
         WHERE book_idx = #{bookIdx}
     </select>
 
+    <select id="selectMemberIdxByBookEvaluationIdx">
+        SELECT member_idx
+        FROM book_evaluation
+        WHERE book_idx = #{bookIdx} 
+        AND book_evaluation_idx = #{bookEvaluationIdx}
+    </select>
+
     <update id="updateRecommendedBook">
         UPDATE book
         SET
@@ -238,9 +246,22 @@
             book_publisher = #{reqBody.publisher},
             title = #{reqBody.bookTitle},
             img_url = #{reqBody.bookImage},
-            recommend_reason = #{reqBody.recommendReason}
+            recommend_reason = #{reqBody.recommendReason},
+            upd_date = NOW()
         WHERE
             book_idx = #{bookIdx} 
+        AND
+            member_idx = #{memberIdx}
+    </update>
+
+    <update id="updateEvaluationBook">
+        UPDATE book_evaluation
+        SET
+            contents = #{contents},
+            star = #{star},
+            upd_date = NOW()
+        WHERE
+            book_evaluation_idx = #{bookEvaluationIdx} 
         AND
             member_idx = #{memberIdx}
     </update>

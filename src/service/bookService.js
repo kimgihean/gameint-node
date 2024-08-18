@@ -516,3 +516,75 @@ module.exports.monthlyBookUpdate = async function monthlyBookUpdate(req, res, ne
         message: "fail"
     }
 }
+
+module.exports.monthlyBookEvaluateUpdate = async function monthlyBookEvaluateUpdate(req, res, next) {
+    var memberIdx = 0;
+    if (req.cookies['member']) {
+        memberIdx = req.cookies['member'];
+    } else {
+        return {
+            code: -1,
+            message: 'fail',
+        };
+    }
+    const bookIdx = req.body.bookIdx;
+    const bookEvaluationIdx = req.body.bookEvaluationIdx;
+
+    var getCreatedBookEvaluationMember;
+    try {
+        var query = mapper.getStatement("query", "selectMemberIdxByBookEvaluationIdx", {bookEvaluationIdx: bookEvaluationIdx})
+        var result = await pool.query(query)
+
+        if (result[0].length < 1) {
+            return {
+                code : -2,
+                message: "fail"
+            }
+        } else {
+            getCreatedBookEvaluationMember = result[0][0];
+        }
+    } catch (e) {
+        console.log("selectMemberIdxByBookEvaluationIdx error - ", e.message)
+        return {
+            code : -99,
+            message: "fail"
+        }
+    }
+
+    if(getCreatedBookEvaluationMember !== memberIdx) {
+        return {
+            code: -3,
+            message: "fail"
+        }
+    }
+
+    const reqBody = {
+        bookEvaluationIdx: bookEvaluationIdx,
+        contents: req.body.contents,
+        star: req.body.star,
+        memberIdx: memberIdx
+    }
+
+    try {
+        var query = mapper.getStatement("query", "updateEvaluationBook", reqBody)
+        var result = await pool.query(query)
+
+        if(result[0].affectedRows > 0) {
+            return {
+                code: 1,
+                message: "success"
+            }
+        }
+    } catch(e) {
+        console.log("updateEvaluationBook error - ", e.message)
+        return {
+            code : -99,
+            message: "fail"
+        }
+    }
+
+    return {
+        code: -4,
+        message: "fail"
+    }
+}

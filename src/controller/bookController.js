@@ -46,6 +46,10 @@ router.post("/monthly/recommend/elect", async function(req, res, next) {
 router.post("/monthly/:bookIdx/evaluate", async function(req, res, next) {
     res.json(await bookService.monthlyBookEvaluate(req, res, next))
 })
+// 책 평가 수정
+router.post("/monthly/evaluate/update", async function(req, res, next) {
+    res.json(await bookService.monthlyBookEvaluateUpdate(req, res, next))
+})
 
 // 책 평가 조회
 router.get("/monthly/:bookIdx/evaluate/list", async function (req, res, next) {
