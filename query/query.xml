@@ -223,4 +223,25 @@
         WHERE 
             DATE_FORMAT(upd_date, "%Y-%m") = #{updDate}
     </select>
+
+    <select id="selectBookMemberIdxByBookIdx">
+        SELECT member_idx
+        FROM book
+        WHERE book_idx = #{bookIdx}
+    </select>
+
+    <update id="updateRecommendedBook">
+        UPDATE book
+        SET
+            author = #{reqBody.author},
+            book_category = #{reqBody.category},
+            book_publisher = #{reqBody.publisher},
+            title = #{reqBody.bookTitle},
+            img_url = #{reqBody.bookImage},
+            recommend_reason = #{reqBody.recommendReason}
+        WHERE
+            book_idx = #{bookIdx} 
+        AND
+            member_idx = #{memberIdx}
+    </update>
 </mapper>

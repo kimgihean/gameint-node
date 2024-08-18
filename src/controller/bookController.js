@@ -33,7 +33,10 @@ router.get("/monthly/recommend/list", async function(req, res, next) {
 router.get("/monthly/recommend/:bookIdx", async function(req, res, next) {
     res.json(await bookService.monthlyBook(req, res, next))
 })
-
+// 추천한 책 수정
+router.post("/monthly/recommend/:bookIdx/update", async function(req, res, next) {
+    res.json(await bookService.monthlyBookUpdate(req, res, next))
+});
 // 책 당선
 router.post("/monthly/recommend/elect", async function(req, res, next) {
     res.json(await bookService.monthlyBookElect(req, res, next))

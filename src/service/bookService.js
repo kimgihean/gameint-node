@@ -445,3 +445,74 @@ module.exports.lastRecommendList = async function lastRecommendList(req, res, ne
     }
 
 }
+
+module.exports.monthlyBookUpdate = async function monthlyBookUpdate(req, res, next) {
+    var bookIdx = req.params.bookIdx;
+    var memberIdx = 0;
+    if (req.cookies['member']) {
+        memberIdx = req.cookies['member'];
+    } else {
+        return {
+            code: -1,
+            message: 'fail',
+        };
+    }
+
+    // 책 작성한 유저인지 확인
+    var getCreatedBookMember;
+    try {
+        var query = mapper.getStatement("query", "selectBookMemberIdxByBookIdx", {bookIdx: bookIdx})
+        var result = await pool.query(query)
+
+        if (result[0].length < 1) {
+            return {
+                code : -2,
+                message: "fail"
+            }
+        } else {
+            getCreatedBookMember = result[0][0];
+        }
+    } catch (e) {
+        console.log("selectBookMemberIdxByBookIdx error - ", e.message)
+        return {
+            code : -99,
+            message: "fail"
+        }
+    }
+
+    if(getCreatedBookMember !== memberIdx) {
+        return {
+            code: -3,
+            message: "fail"
+        }
+    }
+
+    var reqBody = req.body;
+    const param = {
+        reqBody: req.body,
+        bookIdx: bookIdx,
+        memberIdx: memberIdx
+    }
+    try {
+        var query = mapper.getStatement("query", "updateRecommendedBook", {bookIdx: bookIdx})
+        var result = await pool.query(query);
+
+        if(result[0].affectedRows > 0) {
+            return {
+                code: 1,
+                message: "success"
+            }
+        }
+    } catch (e) {
+        console.log("updateRecommendedBook error - ", e.message)
+        return {
+            code : -99,
+            message: "fail"
+        }
+    }
+
+    return {
+        code: -4,
+        message: "fail"
+    }
+}
