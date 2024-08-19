@@ -2,67 +2,67 @@
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test1","김기현","기현","test1","test@telgram","potc.png",null);
+("test1","김기현","기현","test1","test@telgram","rlgus.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test2","김효종","효종","test2","test@telgram","potc.png",null);
+("test2","김효종","효종","test2","test@telgram","gywhd.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test3","진기환","기환","test3","test@telgram","potc.png",null);
+("test3","진기환","기환","test3","test@telgram","rlghks.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test4","안승필","승필","test4","test@telgram","potc.png",null);
+("test4","안승필","승필","test4","test@telgram","tmdvlf.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test5","우현진","현진","test5","test@telgram","potc.png",null);
+("test5","우현진","현진","test5","test@telgram","guswls.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test6","장창훈","창훈","test6","test@telgram","potc.png",null);
+("test6","장창훈","창훈","test6","test@telgram","ckdgns.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test7","이지영","지영","test7","test@telgram","potc.png",null);
+("test7","이지영","지영","test7","test@telgram","wldud.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test8","맹주영","주영","test8","test@telgram","potc.png",null);
+("test8","맹주영","주영","test8","test@telgram","wndud.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test9","백승휴","승휴","test9","test@telgram","potc.png",null);
+("test9","백승휴","승휴","test9","test@telgram","tmdgb.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test10","최유순","유순","test10","test@telgram","potc.png",null);
+("test10","최유순","유순","test10","test@telgram","dbtns.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test11","유경근","경근","test11","test@telgram","potc.png",null);
+("test11","유경근","경근","test11","test@telgram","rudrms.webp",null);
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test12","백재현","재현","test12","test@telgram","potc.png",null);
+("test12","백재현","재현","test12","test@telgram","wogus.webp",null);
 
 
 -- 23년도 12월 당선작 & 추천작
 INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`) 
-VALUES ('3', '2', '2023-11-28 15:00:00', '2023-12-01 15:00:00', '베르나르 베르베르', '소설', '민음사', '게임인트 최초 당선작', '심판');
+VALUES ('3', '2', '2023-11-28 15:00:00', '2023-12-01 15:00:00', '베르나르 베르베르', '소설', '민음사', '<p>추천 사유는 다음과 같습니다</p>', '심판');
 INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`) 
 VALUES ('4', '4', '2023-11-28 15:00:00', '2023-12-01 15:00:00', '보험설계사 김기현', '소설', '민음사', '읽어보자아', 'BU 케어 보험');
 INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`) 
