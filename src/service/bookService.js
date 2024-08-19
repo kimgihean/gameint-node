@@ -577,7 +577,7 @@ module.exports.monthlyBookEvaluateUpdate = async function monthlyBookEvaluateUpd
         }
     }
     console.log(Number(getCreatedBookEvaluationMember.member_idx))
-    if(Number(getCreatedBookEvaluationMember.member_idx) !== memberIdx) {
+    if(Number(getCreatedBookEvaluationMember.member_idx) !== Number(memberIdx)) {
         return {
             code: -3,
             message: "fail"
