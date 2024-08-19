@@ -558,7 +558,7 @@ module.exports.monthlyBookEvaluateUpdate = async function monthlyBookEvaluateUpd
 
     var getCreatedBookEvaluationMember;
     try {
-        var query = mapper.getStatement("query", "selectMemberIdxByBookEvaluationIdx", {bookEvaluationIdx: bookEvaluationIdx})
+        var query = mapper.getStatement("query", "selectMemberIdxByBookEvaluationIdx", {bookIdx:bookIdx, bookEvaluationIdx: bookEvaluationIdx})
         var result = await pool.query(query)
 
         if (result[0].length < 1) {
