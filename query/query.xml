@@ -31,6 +31,13 @@
         WHERE member_idx = #{memberIdx}
     </select>
 
+    <select id="isDuplicated">
+        SELECT book_idx as bookIdx
+        FROM book
+        WHERE member_idx = #{memberIdx}
+        AND DATE_FORMAT(reg_date, "%Y-%m") = #{nowDate}
+    </select>
+
     <select id="selectBookType">
         SELECT book_type as bookType
         FROM book
@@ -62,11 +69,12 @@
             b.book_publisher as bookPublisher,
             b.author as bookAuthor,
             b.title as bookTitle,
-            b.book_type as bookType
+            b.book_type as bookType,
+            b.img_url as bookImage
         FROM book as b
         LEFT JOIN member as m
         ON b.member_idx = m.member_idx
-        WHERE DATE_FORMAT(b.upd_date, '%Y-%m') = "2024-02"
+        WHERE DATE_FORMAT(b.reg_date, '%Y-%m') = "2024-07"
     </select>
         <!-- SELECT 
             b.book_idx as bookIdx,
@@ -101,7 +109,8 @@
     <select id="selectCommentListByBookIdx">
         SELECT
             c.contents,
-            m.img_url as memberImage
+            m.img_url as memberImage,
+            m.name as memberName
         FROM comment as c
         LEFT JOIN member as m
         ON c.member_idx = m.member_idx
@@ -215,6 +224,7 @@
             b.total_star as totalStar,
             m.img_url as profileImg,
             b.book_publisher as bookPublisher,
+            b.img_url as bookImage,
             b.author as author
         FROM
             book as b

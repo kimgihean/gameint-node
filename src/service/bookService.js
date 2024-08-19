@@ -27,6 +27,32 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
         };
     }
 
+    // 책 중복 작성 유효성 검사
+    try{
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+
+        var targetDate = year + '-' + (month < 10 ? '0' + month : month);
+        var query = mapper.getStatement('query', 'isDuplicated', { nowDate: targetDate, memberIdx: memberIdx});
+        var result = await pool.query(query);
+        console.log(query)
+        console.log(result[0])
+        if(result[0].length > 0) {
+            return {
+                code: -4,
+                message: 'fail'
+            }
+        }
+    } catch (e) {
+        console.log("isDuplicated error - ", e.message);
+
+        return {
+            code: -3,
+            message: 'fail',
+        };
+    }
+
     var resultDate = new Date(result);
     var canCreateDate = new Date();
     canCreateDate = canCreateDate.setMonth(canCreateDate.setMonth() - 3);
@@ -361,7 +387,7 @@ module.exports.getThisMonthElectedBook = async function getThisMonthElectedBook(
     var year = nowDate.getFullYear();
     month = nowDate.getMonth() + 1;
 
-    var targetDate = year + '-' + (month < 9 ? '0' + month : month);
+    var targetDate = year + '-' + (month < 10 ? '0' + month : month);
 
     try {
         var query = mapper.getStatement('query', 'selectThisMonthlyElectedBook', { targetDate: targetDate });
