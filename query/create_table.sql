@@ -27,7 +27,7 @@ create table book_evaluation (
     book_evaluation_idx integer not null auto_increment,
     book_idx integer,
     member_idx integer,
-    contents varchar(500),
+    contents varchar(2000),
     star float,
     reg_date datetime,
     upd_date datetime,
