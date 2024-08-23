@@ -75,7 +75,7 @@
         FROM book as b
         LEFT JOIN member as m
         ON b.member_idx = m.member_idx
-        WHERE b.reg_date BETWEEN #{previousMonth} AND #{thisMonth}
+        WHERE DATE_FORMAT(b.reg_date, "%Y-%m-%d") BETWEEN #{previousMonth} AND #{thisMonth}
     </select>
         <!-- SELECT 
             b.book_idx as bookIdx,

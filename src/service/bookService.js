@@ -163,10 +163,26 @@ module.exports.monthlyBookList = async function monthlyBookList(res, req, next) 
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth();
 
-        const previousMonth = new Date(currentYear, currentMonth -1, 24);
-        const thisMonth = new Date(currentYear, currentMonth, 23);
+        var previousMonth;
+        var thisMonth;
+
+        if(currentDate.getDate() >= 24) {
+            previousMonth = new Date(currentYear, currentMonth, 24);
+            thisMonth = new Date(currentYear, currentMonth+1, 23);
+        } else {
+            previousMonth = new Date(currentYear, currentMonth -1, 24);
+            thisMonth = new Date(currentYear, currentMonth, 23);    
+        }
+
+        previousMonth = previousMonth.getFullYear() + '-' 
+            + (previousMonth.getMonth() + 1 < 10 ? '0' + (previousMonth.getMonth() + 1) : previousMonth.getMonth() + 1) + '-' 
+            + (previousMonth.getDate() < 10 ? '0' + previousMonth.getDate() : previousMonth.getDate());
+        thisMonth = thisMonth.getFullYear() + '-' 
+            + (thisMonth.getMonth() + 1 < 10 ? '0' + (thisMonth.getMonth() + 1) : thisMonth.getMonth() + 1) + '-' 
+            + (thisMonth.getDate() < 10 ? '0' + thisMonth.getDate() : thisMonth.getDate());
 
         var query = mapper.getStatement('query', 'selectMonthlyRecommendedBook', {previousMonth: previousMonth, thisMonth: thisMonth});
+        console.log(query)
         result = await pool.query(query);
     } catch (e) {
         console.log('selectMonthlyRecommendedBook error - ', e.message);
