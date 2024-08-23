@@ -45,6 +45,22 @@ app.use(function (req, res, next) {
     next(createError(404));
 });
 
+// TELEGRAM
+const schedule = require('node-schedule');
+
+// 매월 마지막 날 오후 2시에 실행될 작업 예약
+const bot = require('./src/controller/telegramBot').bot;
+
+const job1 = schedule.scheduleJob('0 14 24 * *', async function() {
+    // console.log("test3")
+    await bot.sendMessage(chat_id = '@gameint_notice', `${currentMonth +1}월 책 추천 마감이 얼마 남지 않았습니다!`)
+});
+
+const job2 = schedule.scheduleJob('0 14 28-31 * *', async function() {
+    // console.log("test6")
+    await bot.sendMessage(chat_id = '@gameint_notice', `${currentMonth +1}월 책 추천 마감이 얼마 남지 않았습니다!`)
+});
+
 // error handler
 // app.use(function(err, req, res, next) {
 //   // set locals, only providing error in development

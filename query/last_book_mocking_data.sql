@@ -2,62 +2,62 @@
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test1","김기현","기현","test1","test@telgram","http://www.gameint.site/img/member/rlgus.webp",null);
+("test1","김기현","기현","test1","test@telgram","http://www.gameint.site/img/member/rlgus.webp","2024-05-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test2","김효종","효종","test2","test@telgram","http://www.gameint.site/img/member/gywhd.webp",null);
+("test2","김효종","효종","test2","test@telgram","http://www.gameint.site/img/member/gywhd.webp","2023-12-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test3","진기환","기환","test3","test@telgram","http://www.gameint.site/img/member/rlghks.webp",null);
+("test3","진기환","기환","test3","test@telgram","http://www.gameint.site/img/member/rlghks.webp","2024-08-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test4","안승필","승필","test4","test@telgram","http://www.gameint.site/img/member/tmdvlf.webp",null);
+("test4","안승필","승필","test4","test@telgram","http://www.gameint.site/img/member/tmdvlf.webp","2024-01-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test5","우현진","현진","test5","test@telgram","http://www.gameint.site/img/member/guswls.webp",null);
+("test5","우현진","현진","test5","test@telgram","http://www.gameint.site/img/member/guswls.webp","2024-03-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test6","장창훈","창훈","test6","test@telgram","http://www.gameint.site/img/member/ckdgns.webp",null);
+("test6","장창훈","창훈","test6","test@telgram","http://www.gameint.site/img/member/ckdgns.webp","2023-12-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test7","이지영","지영","test7","test@telgram","http://www.gameint.site/img/member/wldud.webp",null);
+("test7","이지영","지영","test7","test@telgram","http://www.gameint.site/img/member/wldud.webp","2023-12-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test8","맹주영","주영","test8","test@telgram","http://www.gameint.site/img/member/wndud.webp",null);
+("test8","맹주영","주영","test8","test@telgram","http://www.gameint.site/img/member/wndud.webp","2023-12-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test9","백승휴","승휴","test9","test@telgram","http://www.gameint.site/img/member/tmdgb.webp",null);
+("test9","백승휴","승휴","test9","test@telgram","http://www.gameint.site/img/member/tmdgb.webp","2023-12-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test10","최유순","유순","test10","test@telgram","http://www.gameint.site/img/member/dbtns.webp",null);
+("test10","최유순","유순","test10","test@telgram","http://www.gameint.site/img/member/dbtns.webp","2024-07-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test11","유경근","경근","test11","test@telgram","http://www.gameint.site/img/member/rudrms.webp",null);
+("test11","유경근","경근","test11","test@telgram","http://www.gameint.site/img/member/rudrms.webp","2023-12-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
 VALUES
-("test12","백재현","재현","test12","test@telgram","http://www.gameint.site/img/member/wogus.webp",null);
+("test12","백재현","재현","test12","test@telgram","http://www.gameint.site/img/member/wogus.webp","2024-06-01");
 
 INSERT INTO `gameint`.`member`
 (`account`,`name`,`nick_name`,`password`,`telegram_link`,`img_url`,`last_selected_date`)
@@ -181,6 +181,22 @@ INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`,
 VALUES ('4', '7', '2024-07-28 15:00:00', '2024-08-01 15:00:00', '정재승', '소설', '어크로스', '<p>계속 소설이 채택된다는 목소리가 나왔기에 다른 장르의 책을 추천해봅니다.</p><br><p>읽은 지 오래되어 자세히 기억이 나지는 않습니다만, 뇌를 연구하는 물리학자 정재승이 인간의 뇌 구조를 기반으로 이런 저런 이야기를 적어놓은 책입니다.</p><br><p>오늘 점심 뭐 먹지? 결정장애가 생기는 이유에서부터 사람이 미신에 빠져드는 이유까지 흥미로운 주제를 한 사람의 주관이 아닌 인간의 뇌구조를 기반으로 설명해 주니 이런 장르에 관심이 없는 저도 굉장히 재밌게 읽을 수 있었습니다.</p>', '열두 발자국','https://image.yes24.com/goods/116922356/XL');
 INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`, `img_url`) 
 VALUES ('4', '8', '2024-07-28 15:00:00', '2024-08-01 15:00:00', '정보라', '단편소설', '아작', '<p>https://kimchikid.github.io/first-kimchi/</p>', '저주토끼','https://image.yes24.com/goods/118399675/XL');
+
+-- 24년도 9월 당선작 & 추천작
+INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`, `img_url`) 
+VALUES ('2', '3', '2024-08-28 15:00:00', '2024-08-28 15:00:00', '천선란', '에세이', '위고', '<p>저희 동호회 연령대에 디지몬 어드벤처를 안 본 사람이 없다고 생각합니다.</p><br><p>(취향과 취미가 예전과는 비교할 수 없이 다양해진 요즘 이런 공통된 추억은 더 귀하다 생각합니다.)</p><br><p>어릴 때의 같은 추억을 갖고 있는 저희가 추억을 토대 삼아 현실과 대조하며 대화를 나누면 어떤 대화가 오갈지 궁금해서 추천합니다.</p><br><p>(그리고 책값이 쌉니다. 동호회비 세이브 nice...)</p>', '아무튼, 디지몬','https://image.yes24.com/goods/126978695/XL');
+INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`, `img_url`) 
+VALUES ('4', '2', '2024-08-28 15:00:00', '2024-08-28 15:00:00', '조지 오웰', '영미소설', '민음사', '1984', '1984','https://image.yes24.com/goods/372300/XL');
+INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`, `img_url`) 
+VALUES ('4', '9', '2024-08-28 15:00:00', '2024-08-28 15:00:00', '루이스 세풀베다', '소설', '열린책들', '<p>루이스 세풀베다는 남미 작가입니다. [갈매기에게 나는 법을 알려준 고양이], [연애소설을 읽는 노인], [핫라인] 등의 작품이 있습니다. 저는 이 작가를 좋아합니다.</p><br><p>세풀베다의 작품을 읽으면 사회 지탄적인 몇몇 작품을 제외하고, 공통적인 맛이 존재합니다. 저는 말랑하고 쫀득하다고 느낍니다. 알고 보니 고양이에 관련된 작품을 또 쓰셨더라구요. 그래서 보고 싶습니다.</p>', '생쥐와 친구가 된 고양이','https://image.yes24.com/momo/TopCate0001/kepub/L_509525.jpg');
+INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`, `img_url`) 
+VALUES ('4', '6', '2024-08-28 15:00:00', '2024-08-28 15:00:00', '마커스 드 사토이', '교양수학', '북라이프', '<p>평소에 수학적 사고도 좀 공부해보고 싶었는데 설명을 읽어보니 지루한 수학 공부보다는 삶에 도움이 되는 사고 방식을 일러주는 것으로 보여서 선정해 보았습니다!</p>', '수학자의 생각법','https://image.yes24.com/goods/126440937/XL');
+INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`, `img_url`) 
+VALUES ('4', '4', '2024-08-28 15:00:00', '2024-08-28 15:00:00', '가즈오 이시구로', '장편소설', '민음사', '<p>최근 AI의 발전으로 인한 사회적 문제에 대한 유튜브를 시청한 적이 있습니다</p><br><p>(그래서 AI 관련 책을 찾아보았습니다)</p><br><p>[클라라와 태양]은 노벨 문학상 수상 작가 가즈오 이시구로의 책으로 인공지능 로봇 클라라가 인간의 친구로서 살아가면서 인간의 감정과 본질을 탐구하는 이야기를 담고 있습니다. 이 책은 사랑과 희생, 기술과 인간성에 대한 깊은 질문을 던진다고 합니다 ㅎㅎ</p><br><p>독서 모임에서 다양한 해석과 풍부한 토론을 이끌어낼 수 있을 것 같은 책이라 추천합니다!!</p>', '클라라와 태양','https://image.yes24.com/goods/98349603/XL');
+INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`, `img_url`) 
+VALUES ('4', '7', '2024-08-28 15:00:00', '2024-08-28 15:00:00', '정재승', '소설', '어크로스', '<p>계속 소설이 채택된다는 목소리가 나왔기에 다른 장르의 책을 추천해봅니다.</p><br><p>읽은 지 오래되어 자세히 기억이 나지는 않습니다만, 뇌를 연구하는 물리학자 정재승이 인간의 뇌 구조를 기반으로 이런 저런 이야기를 적어놓은 책입니다.</p><br><p>오늘 점심 뭐 먹지? 결정장애가 생기는 이유에서부터 사람이 미신에 빠져드는 이유까지 흥미로운 주제를 한 사람의 주관이 아닌 인간의 뇌구조를 기반으로 설명해 주니 이런 장르에 관심이 없는 저도 굉장히 재밌게 읽을 수 있었습니다.</p>', '열두 발자국','https://image.yes24.com/goods/116922356/XL');
+INSERT INTO `gameint`.`book` (`book_type`, `member_idx`, `reg_date`, `upd_date`, `author`, `book_category`, `book_publisher`, `recommend_reason`, `title`, `img_url`) 
+VALUES ('4', '8', '2024-08-28 15:00:00', '2024-08-28 15:00:00', '정보라', '단편소설', '아작', '<p>https://kimchikid.github.io/first-kimchi/</p>', '저주토끼','https://image.yes24.com/goods/118399675/XL');
 
 
 -- 12월 리뷰

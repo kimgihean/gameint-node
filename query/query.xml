@@ -26,7 +26,8 @@
 	</insert>
 
     <select id="isSelectedDate">
-        SELECT IFNULL(DATE_FORMAT(last_selected_date, "%Y-%m-%d"), "2023-12-01") as selectedDate
+        SELECT IFNULL(DATE_FORMAT(last_selected_date, "%Y-%m-%d"), "2023-12-01") as selectedDate,
+            name
         FROM member
         WHERE member_idx = #{memberIdx}
     </select>
@@ -128,22 +129,22 @@
     <!-- 당선된 적 있던 도서 book type 3 -->
     <update id="updateBeforeElectMonthlyBook">
         UPDATE book
-        SET bookType = 3
-        WHERE bookType = 2
+        SET book_type = 3
+        WHERE book_type = 2
     </update>
 
     <!-- 현재 당선 도서 book type 2 -->
     <update id="updateElectMonthlyBook">
         UPDATE book
-        SET bookType = 2, selected_date = NOW(), upd_date = NOW()
+        SET book_type = 2, selected_date = NOW(), upd_date = NOW()
         WHERE book_idx = #{bookIdx}
     </update>
 
     <!-- 추천된 적 있던 도서 book type 4 -->
     <update id="updateRecommendBookType">
         UPDATE book
-        SET bookType = 4
-        WHERE bookType = 1
+        SET book_type = 4
+        WHERE book_type = 1
     </update>
 
     <update id="selectAndUpdateMemberIdxByBookIdx">
@@ -239,6 +240,14 @@
         SELECT member_idx
         FROM book
         WHERE book_idx = #{bookIdx}
+    </select>
+
+    <select id="selectMemberElected">
+        SELECT m.name as name
+        FROM member as m
+        LEFT JOIN book as b
+        ON m.member_idx = b.member_idx
+        WHERE b.book_idx = #{bookIdx}
     </select>
 
     <select id="selectMemberIdxByBookEvaluationIdx">

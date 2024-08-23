@@ -1,6 +1,8 @@
 const pool = require('../common/config/db');
 const mapper = require('mybatis-mapper');
 
+const bot = require('../controller/telegramBot').bot
+
 module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, next) {
     var memberIdx = 0;
 
@@ -31,13 +33,17 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
 
     // 책 작성 가능 멤버
     var result;
+    var creatingMemberName;
     try {
         var query = mapper.getStatement('query', 'isSelectedDate', { memberIdx: memberIdx });
         result = await pool.query(query);
 
         var selectedDate = new Date(result[0][0].selectedDate);
+        creatingMemberName = result[0][0].name;
+
         var nowDate = new Date();
-        selectedDate = selectedDate.setMonth(selectedDate.getMonth() + 4);
+        selectedDate = selectedDate.setMonth(selectedDate.getMonth() + 3);
+
         if(nowDate < selectedDate) {
             return {
                 code: -4,
@@ -62,8 +68,7 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
         var targetDate = year + '-' + (month < 10 ? '0' + month : month);
         var query = mapper.getStatement('query', 'isDuplicated', { nowDate: targetDate, memberIdx: memberIdx});
         var result = await pool.query(query);
-        console.log(query)
-        console.log(result[0])
+
         if(result[0].length > 0) {
             return {
                 code: -4,
@@ -100,17 +105,17 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
      */
     var param = req.body;
     var result;
-    try {
-        var query = mapper.getStatement('query', 'selectBookType', param);
-        result = await pool.query(query);
-    } catch (e) {
-        console.log('selectBookType error - ', e.message);
+    // try {
+    //     var query = mapper.getStatement('query', 'selectBookType', param);
+    //     result = await pool.query(query);
+    // } catch (e) {
+    //     console.log('selectBookType error - ', e.message);
 
-        return {
-            code: -3,
-            message: 'fail',
-        };
-    }
+    //     return {
+    //         code: -3,
+    //         message: 'fail',
+    //     };
+    // }
 
     var bookType = 1;
 
@@ -137,6 +142,8 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
     }
 
     if (result[0].affectedRows > 0) {
+
+        await bot.sendMessage(chat_id = '@gameint_notice', `${creatingMemberName} 님께서 책추천을 하셨어요! \nhttp://www.gameint.site << 확인하러 가기`)
         return {
             code: 1,
             message: 'success',
@@ -238,14 +245,6 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
     try {
         var query = mapper.getStatement('query', 'updateBeforeElectMonthlyBook');
         var result = await conn.query(query);
-
-        if (result[0].affectedRows !== 1) {
-            conn.rollback();
-            return {
-                code: -1,
-                messaget: 'fail',
-            };
-        }
     } catch (e) {
         console.log('updateBeforeElectMonthlyBook error - ', e.message);
         conn.rollback();
@@ -318,6 +317,11 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
         };
     }
 
+    var query = mapper.getStatement('query', 'selectMemberElected', { bookIdx: electedBook });
+    var result = await conn.query(query);
+
+    await bot.sendMessage(chat_id = '@gameint_notice', `${result[0][0].name} 님께서 당선되었어요!! \nhttp://www.gameint.site << 당선작 확인하러 가기`)
+    conn.commit();
     conn.release();
     return {
         code: 1,
