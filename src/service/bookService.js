@@ -12,12 +12,38 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
             message: 'fail',
         };
     }
+    // 책 추천 가능 날짜 확인
+    const currentDate = new Date();
+    
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
+    const startDate = new Date(currentYear, currentMonth, 23);
+    const endDate = new Date(currentYear, currentMonth +1, 0);
+
+    // 현재 날짜가 이번 달 23일부터 마지막 날 사이에 있는지 확인
+    if (currentDate < startDate || currentDate > endDate) {
+        return {
+            code: -5,
+            message: "fail"
+        }
+    }
 
     // 책 작성 가능 멤버
     var result;
     try {
         var query = mapper.getStatement('query', 'isSelectedDate', { memberIdx: memberIdx });
         result = await pool.query(query);
+
+        var selectedDate = new Date(result[0][0].selectedDate);
+        var nowDate = new Date();
+        selectedDate = selectedDate.setMonth(selectedDate.getMonth() + 4);
+        if(nowDate < selectedDate) {
+            return {
+                code: -4,
+                message: "fail"
+            }
+        }
     } catch (e) {
         console.log('isSelectedDate error - ', e.message);
 
@@ -126,7 +152,14 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
 module.exports.monthlyBookList = async function monthlyBookList(res, req, next) {
     var result;
     try {
-        var query = mapper.getStatement('query', 'selectMonthlyRecommendedBook');
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+
+        const previousMonth = new Date(currentYear, currentMonth -1, 24);
+        const thisMonth = new Date(currentYear, currentMonth, 23);
+
+        var query = mapper.getStatement('query', 'selectMonthlyRecommendedBook', {previousMonth: previousMonth, thisMonth: thisMonth});
         result = await pool.query(query);
     } catch (e) {
         console.log('selectMonthlyRecommendedBook error - ', e.message);
@@ -198,12 +231,16 @@ module.exports.monthlyBook = async function monthlyBook(req, res, next) {
 module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next) {
     var electedBook = req.body.bookIdx;
 
+    const conn = await pool.getConnection();
+    await conn.beginTransaction();
+
     // 이전에 당선됐던 책 (type 2) type 3으로 변경
     try {
         var query = mapper.getStatement('query', 'updateBeforeElectMonthlyBook');
-        var result = await pool.query(query);
+        var result = await conn.query(query);
 
         if (result[0].affectedRows !== 1) {
+            conn.rollback();
             return {
                 code: -1,
                 messaget: 'fail',
@@ -211,6 +248,7 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
         }
     } catch (e) {
         console.log('updateBeforeElectMonthlyBook error - ', e.message);
+        conn.rollback();
         return {
             code: -99,
             message: 'fail',
@@ -220,9 +258,10 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
     // 당선 된 책 type 2 으로 변경
     try {
         var query = mapper.getStatement('query', 'updateElectMonthlyBook', { bookIdx: electedBook });
-        var result = await pool.query(query);
+        var result = await conn.query(query);
 
         if (result[0].affectedRows !== 1) {
+            conn.rollback();
             return {
                 code: -2,
                 messaget: 'fail',
@@ -230,18 +269,20 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
         }
     } catch (e) {
         console.log('updateElectMonthlyBook error - ', e.message);
+        conn.rollback();
         return {
             code: -99,
             message: 'fail',
         };
     }
 
-    // 다른 추천 책 모두 type 4 로 변경
+    // 다른 추천한 책 모두 type 4 로 변경
     try {
         var query = mapper.getStatement('query', 'updateRecommendBookType');
-        var result = await pool.query(query);
+        var result = await conn.query(query);
 
         if (result[0].affectedRows < 1) {
+            conn.rollback();
             return {
                 code: -3,
                 messaget: 'fail',
@@ -249,6 +290,7 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
         }
     } catch (e) {
         console.log('updateRecommendBookType error - ', e.message);
+        conn.rollback();
         return {
             code: -99,
             message: 'fail',
@@ -258,9 +300,10 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
     // 당선이 끝나면 추천인 last_selected_date 업데이트
     try {
         var query = mapper.getStatement('query', 'selectAndUpdateMemberIdxByBookIdx', { bookIdx: electedBook });
-        var result = await pool.query(query);
+        var result = await conn.query(query);
 
         if (result[0].affectedRows < 1) {
+            conn.rollback();
             return {
                 code: -4,
                 messaget: 'fail',
@@ -268,12 +311,14 @@ module.exports.monthlyBookElect = async function monthlyBookElect(req, res, next
         }
     } catch (e) {
         console.log('selectAndUpdateMemberIdxByBookIdx error - ', e.message);
+        conn.rollback();
         return {
             code: -99,
             message: 'fail',
         };
     }
 
+    conn.release();
     return {
         code: 1,
         message: 'success',
