@@ -46,7 +46,7 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
 
         if(nowDate < selectedDate) {
             return {
-                code: -4,
+                code: -6,
                 message: "fail"
             }
         }
@@ -84,16 +84,16 @@ module.exports.monthlyBookCreate = async function monthlyBookCreate(req, res, ne
         };
     }
 
-    var resultDate = new Date(result);
-    var canCreateDate = new Date();
-    canCreateDate = canCreateDate.setMonth(canCreateDate.setMonth() - 3);
+    // var resultDate = new Date(result);
+    // var canCreateDate = new Date();
+    // canCreateDate = canCreateDate.setMonth(canCreateDate.setMonth() - 3);
 
-    if (resultDate.getMonth >= canCreateDate.getMonth) {
-        return {
-            code: -2,
-            message: 'fail',
-        };
-    }
+    // if (resultDate.getMonth >= canCreateDate.getMonth) {
+    //     return {
+    //         code: -2,
+    //         message: 'fail',
+    //     };
+    // }
 
     /**
      * bookTitle, publisher, category, recommendReason, author
